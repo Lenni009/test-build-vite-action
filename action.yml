@@ -1,0 +1,28 @@
+name: Test Build
+description: Checks whether the app can be built successfully
+
+runs:
+  using: 'composite'
+  steps:
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Packages
+        run: npm ci
+        shell: bash
+
+      - name: Build App
+        run: npm run build > log.txt
+        shell: bash
+
+      # have an eye on https://github.com/actions/runner/issues/662 to avoid the if statements
+      - if: failure()
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: log.txt
+
+      - if: failure()
+        run: exit 1
+        shell: bash
