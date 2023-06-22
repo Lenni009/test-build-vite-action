@@ -1,13 +1,20 @@
 name: Test Build
 description: Checks whether the app can be built successfully
 
+inputs:
+  node-version:
+    description: 'NodeJS version to use'
+    required: false
+    default: 'latest'
+
 runs:
   using: 'composite'
   steps:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 19
+          node-version: ${{ inputs.node-version }} 
+          cache: npm
 
       - name: Install Packages
         run: npm ci
