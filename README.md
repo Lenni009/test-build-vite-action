@@ -24,4 +24,5 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Test Build
-        uses: Lenni009/test-build-vite-action@main```
+        uses: Lenni009/test-build-vite-action@main
+```
